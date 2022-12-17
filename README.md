@@ -1,2 +1,2 @@
-# Budgeting-App
+# Frugality
 Building... :)
