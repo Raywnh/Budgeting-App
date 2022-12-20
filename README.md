@@ -1,2 +1,2 @@
-# Frugality
+Frugally
 Building... :)
