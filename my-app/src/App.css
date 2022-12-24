@@ -1,0 +1,95 @@
+.App {
+  display: flex;
+  color: white;
+}
+
+/* MENU BAR */
+.menuBar {
+  display: flex;
+  height: 50px;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: rgb(52, 51, 51);
+}
+
+.navLinks {
+  background-color: transparent;
+}
+
+.navLinks li{
+  display: inline-block;
+  padding: 0px, 20px;
+  margin: 16px;
+}
+
+.navLinks li a {
+  transition: all 0.3s ease;
+}
+
+.navLinks li a:hover {
+  color: rgb(236, 190, 27);
+}
+
+.navLinks button {
+  transition: all 0.3s ease;
+}
+
+.navLinks button:hover {
+  color: rgb(236, 190, 27);
+  cursor: pointer;
+}
+.title {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 34px;
+  color: rgb(226, 186, 40);
+  background-color: transparent;
+}
+
+/* DROPDOWN BAR */
+
+.dropDown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgb(29, 28, 28);
+  top: 50.75px;
+  bottom: 0px;
+  left: 0;
+  width: 175px;
+  overflow: hidden;
+  transition: 850ms;
+}
+
+.dropDown.active {
+  left: 0;
+  transform: 250ms;
+}
+
+.dropDown li{
+  display: inline-block;
+  padding: 0px, 20px;
+  margin: 16px;
+}
+
+.dropDown li a {
+  transition: all 0.3s ease;
+}
+
+.dropDown li a:hover {
+  color: rgb(236, 190, 27);
+}
+
+.dropDown button {
+  margin-top: auto;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.dropDown button:hover {
+  color: rgb(236, 190, 27);
+  cursor: pointer;
+}
