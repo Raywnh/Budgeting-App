@@ -1,2 +1,2 @@
-#An app for my personal needs#
+An app for my personal budgeting needs
 
