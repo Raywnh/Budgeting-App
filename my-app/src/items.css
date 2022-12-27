@@ -1,0 +1,16 @@
+.item-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid white;
+    padding: 10px;
+    width: 750px;
+    margin-top: 20px;
+}
+
+.item {
+    margin-right: auto;
+}
+
+.complete-button {
+    margin-right: 100px;
+}

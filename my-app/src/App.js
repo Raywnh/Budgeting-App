@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import './menu.css';
+import './sheet.css';
+import './items.css'
 
-import './App.css';
-import MenuBar from './components/MenuBar';
+import MenuBar from './components/MenuBar'
+import Sheet from './components/Sheet'
 
-class App extends Component {
-  state = {  } 
-  render() { 
-    return (
+function App() {
+
+  return (
+    <div className="app">
       <MenuBar/>
-    )
-  }
+
+      <Sheet/>
+    </div>
+  )
+  
 }
+
  
 export default App;

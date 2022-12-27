@@ -1,0 +1,64 @@
+.sheet { 
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    height: 100px;
+    padding: 0px;
+    grid-area: "content";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    justify-content: center;
+}
+
+.date {
+    color: rgb(230, 179, 40);
+    width: 60px;
+    align-items: center;
+}
+
+.taskBar {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 34px;
+    align-items: center;
+
+}
+.taskBar button {
+    display: inline-block;
+    padding: 0px;
+    height: 0px;    
+    transition: 0.3s ease;
+}
+.taskBar button:hover {
+    color: rgb(236, 190, 27);
+    cursor: pointer;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.category {
+    transition: 0.3s ease;
+}
+
+.category:hover {
+    color: rgb(236, 190, 27);
+    cursor: pointer;
+}
+
+.todo-input {
+    color: white;
+}
+
+.list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
