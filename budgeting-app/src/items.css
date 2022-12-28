@@ -1,18 +1,24 @@
 .item-container {
     display: flex;
-    justify-content: space-between;
-    border: 1px solid rgb(251, 184, 41);
+    justify-content: space-evenly;
+    border: 1px solid white;
     padding: 10px;
     width: 750px;
     margin-top: 20px;
-    vertical-align: bottom;
+    height: 40px;
+    align-items: center;
+}
+.item-container:hover {
+    border: 1px solid rgb(251, 184, 41);
 }
 .item {
     margin-right: auto;
+    color:  rgb(250, 130, 130) 
 }
 
 .price { 
     margin-right: 150px;
+    color: rgb(251, 184, 41);
 }
 .edit-button {
     margin-right: 100px;

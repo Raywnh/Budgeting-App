@@ -1,6 +1,7 @@
 .sheet { 
     margin-left: auto;
     margin-right: auto;
+    margin-top: 80px;
     width: 75%;
     height: auto;
     padding: 0px;
@@ -28,7 +29,7 @@
     padding: 0px;
     height: 0px;    
     transition: 0.3s ease;
-    color: rgb(151, 220, 166);
+    color: rgb(220, 151, 151);
 }
 .taskBar button:hover {
     color: rgb(236, 190, 27);
@@ -43,10 +44,12 @@
 }
 .headerBar div {
     display: flex;
-    justify-content: center;
     gap: 24px;
 }
 
+.headerBar input {
+    color: white;
+}
 .category {
     transition: 0.3s ease;
     border: 1px solid rgb(236, 190, 27);
@@ -58,10 +61,11 @@
     cursor: pointer;
 }
 
-.todo-input {
+.todo-input2 {
     color: white;
+    margin-left: 5px;
 }
-
+    
 .list-container {
     display: flex;
     flex-direction: column;
@@ -76,4 +80,7 @@
     padding: 10px;
 }
 
+.sheet input {
+    border: 1.5px solid rgb(198, 162, 80);
+}
 

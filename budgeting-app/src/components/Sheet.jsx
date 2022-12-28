@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
-import ListComponent from './ListComponent'
-
+import { v4 as uuidv4 } from 'uuid'
+import Item from './Item'
 
 function Sheet() {
 
@@ -12,6 +12,8 @@ function Sheet() {
         const [items, setItems] = useState([])
         const itemNameRef = useRef()
 
+        const[inputPrice, setInputPrice] = useState("")
+        const itemPriceRef = useRef()
 
         return (
                 <div className="sheet">
@@ -23,39 +25,44 @@ function Sheet() {
                                 </nav>
                                 <div className="form1">
                                         <h4>Name:</h4>
-                                        <input value={inputName} type="text" className='todo-input' 
+                                        <input value={inputName} type="text" className='todo-input1' 
                                         onChange={handleInputName} ref={itemNameRef}/>
                                         
                                 </div>
                                 <div className="form2">
                                         <h4>Price:</h4>
-                                        <input value={inputName} type="text" className='todo-input' 
-                                        onChange={handleInputName} ref={itemNameRef}/>
+                                        <input value={inputPrice} type="text" className='todo-input2' 
+                                        onChange={handleInputPrice} ref={itemPriceRef}/>
                                 </div>
                                 <button className="category" type="submit" onClick={handleSubmit}>Add
                                         </button>
                                 <h4>Total amount: $$$</h4>
                         </div>
-                        <ListComponent items = {items} key = {items.name}/>
+                        <div className="list-container">
+                                {items.map(items =>{return <Item key ={items.id} items={items}/>})}
+                        </div>
                 </div>)
 
         function handleInputName(e) {
                 setInputName(e.target.value)
         }
-        
+
+        function handleInputPrice(e) {
+                setInputPrice(e.target.value)
+        }
+
         function handleSubmit(e) {
+                if (itemNameRef.current.value === '' || itemPriceRef.current.value === '') return
+
                 const name = itemNameRef.current.value
-                if (name === '') return
+                const price = itemPriceRef.current.value
 
                 setItems(prevItems => {
-                return [...prevItems, {id: Math.random(), name: name, number: 0}]
+                return [...prevItems, {id: uuidv4(), name: name, price: price}]
                 })
-
+                itemPriceRef.current.value = null
                 itemNameRef.current.value = null
-                
 
-        
-        
         }         
         function handleClickBackwards() {
                 setPointer((((pointer - 1) % dates.length) + dates.length) % dates.length)   
