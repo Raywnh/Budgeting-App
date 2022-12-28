@@ -1,16 +1,28 @@
 .item-container {
     display: flex;
     justify-content: space-between;
-    border: 1px solid white;
+    border: 1px solid rgb(251, 184, 41);
     padding: 10px;
     width: 750px;
     margin-top: 20px;
+    vertical-align: bottom;
 }
-
 .item {
     margin-right: auto;
 }
 
-.complete-button {
+.price { 
+    margin-right: 150px;
+}
+.edit-button {
     margin-right: 100px;
+}
+
+.item-container button {
+    transition: 0.3s ease;
+}
+
+.item-container button:hover {
+    cursor: pointer;
+    color: rgb(251, 184, 41);
 }

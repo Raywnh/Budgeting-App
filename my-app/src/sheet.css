@@ -2,13 +2,12 @@
     margin-left: auto;
     margin-right: auto;
     width: 75%;
-    height: 100px;
+    height: auto;
     padding: 0px;
     grid-area: "content";
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
     justify-content: center;
 }
 
@@ -23,20 +22,26 @@
     justify-content: space-evenly;
     gap: 34px;
     align-items: center;
-
 }
 .taskBar button {
     display: inline-block;
     padding: 0px;
     height: 0px;    
     transition: 0.3s ease;
+    color: rgb(151, 220, 166);
 }
 .taskBar button:hover {
     color: rgb(236, 190, 27);
     cursor: pointer;
 }
 
-.form {
+.headerBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.headerBar div {
     display: flex;
     justify-content: center;
     gap: 24px;
@@ -44,6 +49,8 @@
 
 .category {
     transition: 0.3s ease;
+    border: 1px solid rgb(236, 190, 27);
+    padding: 5px;
 }
 
 .category:hover {
@@ -60,5 +67,13 @@
     flex-direction: column;
 }
 
+.headerBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    border: 1px solid white;
+    padding: 10px;
+}
 
 
