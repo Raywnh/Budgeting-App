@@ -1,19 +1,20 @@
-import React, { useState, useRef } from 'react'
+import React, {useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Item from './Item'
 
-function Sheet() {
 
-        const dates = ["Jan", "Feb", "March", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        const [date, setDate] = useState("Jan")
-        const [pointer, setPointer] = useState(0)
+function Sheet({dates, date, setDate, inputName, setInputName, items, setItems, itemNameRef, inputPrice, setInputPrice, itemPriceRef,
+                setPointer, pointer}) {
+                        
+        // TODO: Creat Delete function
+        // TODO: Create edit function
+        // TODO: Store items in a database through backend --> Express.js + MongoDB time!!!
+ 
+        useEffect(() => {
+             
+        })
 
-        const [inputName, setInputName] = useState("")
-        const [items, setItems] = useState([])
-        const itemNameRef = useRef()
-
-        const[inputPrice, setInputPrice] = useState("")
-        const itemPriceRef = useRef()
+        // Render changes once
 
         return (
                 <div className="sheet">
@@ -34,45 +35,50 @@ function Sheet() {
                                         <input value={inputPrice} type="text" className='todo-input2' 
                                         onChange={handleInputPrice} ref={itemPriceRef}/>
                                 </div>
-                                <button className="category" type="submit" onClick={handleSubmit}>Add
+                                <button className="category" onClick={handleSubmit}>Add
                                         </button>
                                 <h4>Total amount: $$$</h4>
                         </div>
                         <div className="list-container">
-                                {items.map(items =>{return <Item key ={items.id} items={items}/>})}
+                                {items.map(items => {return <Item key={items.id} items = {items} handleDelete={handleDelete}></Item>})}
                         </div>
                 </div>)
 
-        function handleInputName(e) {
+            function handleDelete(id) {
+                // const itemss = items.filter(item => item.id !== id)
+                // setItems(itemss)
+            }
+            function handleInputName(e) {
                 setInputName(e.target.value)
-        }
+            }
+            
 
-        function handleInputPrice(e) {
+            function handleInputPrice(e) {
                 setInputPrice(e.target.value)
-        }
-
-        function handleSubmit(e) {
+            }
+          
+            function handleSubmit(e) {
                 if (itemNameRef.current.value === '' || itemPriceRef.current.value === '') return
-
+          
                 const name = itemNameRef.current.value
                 const price = itemPriceRef.current.value
-
+          
                 setItems(prevItems => {
-                return [...prevItems, {id: uuidv4(), name: name, price: price}]
-                })
+                        return [...prevItems, {id: uuidv4(), name: name, price: price}]
+                        })
                 itemPriceRef.current.value = null
                 itemNameRef.current.value = null
-
-        }         
-        function handleClickBackwards() {
+          
+            }         
+            function handleClickBackwards() {
                 setPointer((((pointer - 1) % dates.length) + dates.length) % dates.length)   
                 setDate(dates[(((pointer - 1) % dates.length) + dates.length) % dates.length])
-        }    
-
-        function handleClickForwards() {  
+            }    
+          
+            function handleClickForwards() {  
                 setPointer((((pointer + 1) % dates.length) + dates.length) % dates.length)    
                 setDate(dates[(((pointer + 1) % dates.length) + dates.length) % dates.length]) 
-        }
+            }
 }
  
 export default Sheet;
