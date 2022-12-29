@@ -1,0 +1,196 @@
+
+.App {
+ flex-direction: column;
+ display: flex;
+ align-items: center;
+}
+
+/* MENU BAR HEADER */
+.menuBar {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  height: 50px;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: rgb(52, 51, 51);
+}
+
+.navLinks {
+  background-color: transparent;
+}
+
+.navLinks li{
+  display: inline-block;
+  padding: 0px, 20px;
+  margin: 16px;
+}
+
+.navLinks li a {
+  transition: all 0.3s ease;
+}
+
+.navLinks li a:hover {
+  color: rgb(236, 190, 27);
+}
+
+.navLinks button {
+  transition: all 0.3s ease;
+}
+
+.navLinks button:hover {
+  color: rgb(236, 190, 27);
+  cursor: pointer;
+}
+.title {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 34px;
+  color: rgb(226, 186, 40);
+  background-color: transparent;
+}
+
+/* FORM */
+
+.sheet { 
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  width: 75%;
+  height: auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.date {
+  color: rgb(230, 179, 40);
+  width: 60px;
+  text-align: center;
+}
+
+.taskBar {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 34px;
+  align-items: center;
+}
+.taskBar button {
+  display: inline-block;
+  padding: 0px;
+  height: 0px;    
+  transition: 0.3s ease;
+  color: rgb(220, 151, 151);
+}
+.taskBar button:hover {
+  color: rgb(236, 190, 27);
+  cursor: pointer;
+}
+
+.headerBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.headerBar div {
+  display: flex;
+  gap: 24px;
+}
+
+.headerBar input {
+  color: white;
+}
+.category {
+  transition: 0.3s ease;
+  border: 1px solid rgb(236, 190, 27);
+  padding: 5px;
+}
+
+.category:hover {
+  color: rgb(236, 190, 27);
+  cursor: pointer;
+}
+
+.todo-input2 {
+  color: white;
+  margin-left: 5px;
+}
+  
+.list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.sheet input {
+  border: 1.5px solid rgb(198, 162, 80);
+}
+
+.sheet h4 {
+  color: white;
+}
+
+.buttons button {
+  display: flex;
+  transition: 0.3s ease;
+  border: 1px solid rgb(236, 190, 27);
+  padding: 5px;
+}
+
+/* ITEM */
+
+.item-container {
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid white;
+  padding: 10px;
+  width: 750px;
+  margin-top: 20px;
+  height: 40px;
+  align-items: center;
+}
+.item-container:hover {
+  border: 1px solid rgb(251, 184, 41);
+}
+.item-container:active {
+  border: 1px solid rgb(224, 146, 146);
+}
+
+.item {
+  margin-right: auto;
+  color:  rgb(250, 130, 130) 
+}
+
+.price { 
+  margin-right: 150px;
+  color: rgb(251, 184, 41);
+}
+.edit-button {
+  margin-right: 100px;
+}
+
+.item-container button {
+  transition: 0.3s ease;
+}
+
+.item-container button:hover {
+  cursor: pointer;
+  color: rgb(251, 184, 41);
+}
+
+
+
+
+
