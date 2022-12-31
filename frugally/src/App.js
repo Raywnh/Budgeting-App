@@ -13,9 +13,10 @@ function App() {
 
   const [editItems, setEditItems] = useState(null)
 
+  // TODO: LOGIN PAGE WITH ROUTERS
   // TODO: CREATE FIELD TO SET TOTAL BUDGET 
   // TODO: CONNECT DATA TO BACKEND --> EXPRESS.JS + MONGODOB + NODE.JS
-    // DATA: items, budget number
+    
 
   return (
     <div className="App">
