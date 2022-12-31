@@ -1,9 +1,11 @@
 import './App.css';
 import Menubar from './components/Menubar';
 import Form from './components/Form';
+import Login from './Login';
 import { useState, useRef } from 'react';
 import {v4 as uuidv4} from "uuid"
 import React , {useEffect} from 'react'
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 function App() {
   const [totalBudget, setTotalBudget] = useState(0)
@@ -19,12 +21,18 @@ function App() {
     
 
   return (
-    <div className="App">
+    <Router>
+      <div className="App">
       <Menubar/>
-      <Form items={items} setItems={setItems} onNameSubmit={onNameSubmit} inputRefPrice={inputRefPrice} inputRefName={inputRefName} 
-            deleteComponent={deleteComponent} totalBudget={totalBudget} editComponent={editComponent}
-            />
-    </div>
+      <Routes>
+          <Route path= "/" element={
+            <Form items={items} setItems={setItems} onNameSubmit={onNameSubmit} inputRefPrice={inputRefPrice} inputRefName={inputRefName} 
+                  deleteComponent={deleteComponent} totalBudget={totalBudget} editComponent={editComponent}
+                  />}/>
+          <Route path="/login" element={<Login/>}/>
+      </Routes>
+      </div>
+    </Router>
   )
 
   function onNameSubmit() {

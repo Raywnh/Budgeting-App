@@ -190,6 +190,9 @@
   color: rgb(251, 184, 41);
 }
 
+.login {
+  display: flex;
+}
 
 
 
