@@ -14,6 +14,8 @@ function App() {
   const inputRefPrice = useRef()
 
   const [editItems, setEditItems] = useState(null)
+  
+  const loginToggled = true
 
   // TODO: LOGIN PAGE WITH ROUTERS
   // TODO: CREATE FIELD TO SET TOTAL BUDGET 
@@ -23,18 +25,18 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <Menubar/>
       <Routes>
-          <Route path= "/" element={
+          <Route path= "/" element={<><Menubar loginToggled={loginToggled}/>
             <Form items={items} setItems={setItems} onNameSubmit={onNameSubmit} inputRefPrice={inputRefPrice} inputRefName={inputRefName} 
                   deleteComponent={deleteComponent} totalBudget={totalBudget} editComponent={editComponent}
-                  />}/>
-          <Route path="/login" element={<Login/>}/>
+                  /></>}/>
+          <Route path="/login" element={<><Menubar loginToggled={!loginToggled}/><Login/></>}/>
       </Routes>
       </div>
     </Router>
   )
 
+  
   function onNameSubmit() {
     const name = inputRefName.current.value
     const price = inputRefPrice.current.value
