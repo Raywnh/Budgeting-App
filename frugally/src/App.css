@@ -1,3 +1,6 @@
+* {
+  font-family: monospace;
+}
 
 .App {
  flex-direction: column;
@@ -43,7 +46,7 @@
   cursor: pointer;
 }
 .title {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: monospace;
   margin-left: auto;
   margin-right: 10px;
   font-size: 34px;
@@ -84,6 +87,7 @@
   height: 0px;    
   transition: 0.3s ease;
   color: rgb(220, 151, 151);
+  font-family: monospace;
 }
 .taskBar button:hover {
   color: rgb(236, 190, 27);
@@ -149,6 +153,10 @@
   padding: 5px;
 }
 
+.todo-input2 {
+  margin-right: 10px;
+}
+
 /* ITEM */
 
 .item-container {
@@ -190,9 +198,50 @@
   color: rgb(251, 184, 41);
 }
 
-.login {
+/* LOGIN PAGE */
+
+.login form{
   display: flex;
+  justify-content: center;
+  margin-top: 160px;
+  flex-direction: column;
+  gap: 24px;
 }
+
+
+.login input {
+  margin-top: 6px;
+  height: 50px;
+  font-size: large;
+  color: rgb(233, 185, 40);
+  background-color: rgb(49, 48, 48);
+  font-family: monospace;
+}
+
+.login h2 {
+  color: white;
+}
+
+.login button {
+  height: 50px;
+  font-size: large;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  transition: 0.3s ease-out;
+  background-color: rgb(32, 32, 32);
+}
+
+.login button:hover {
+  cursor: pointer;
+  color:rgb(229, 177, 45)
+}
+
+.login div {
+  gap: 10px;
+}
+
+
 
 
 
