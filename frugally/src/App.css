@@ -54,6 +54,11 @@
   background-color: transparent;
 }
 
+.navLinks h4 {
+  background-color: transparent;
+  color: goldenrod;
+}
+
 /* FORM */
 
 .sheet { 
@@ -108,16 +113,22 @@
 .headerBar input {
   color: white;
 }
-.category {
+.headerBar button {
   transition: 0.3s ease;
   border: 1px solid rgb(236, 190, 27);
-  padding: 5px;
+  padding: 3px;
+  background-color: rgb(51, 49, 49);
 }
 
-.category:hover {
+.headerBar button:hover {
   color: rgb(236, 190, 27);
   cursor: pointer;
 }
+
+.budget {
+  font-size: 12px;
+}
+
 
 .todo-input2 {
   color: white;
@@ -146,15 +157,19 @@
   color: white;
 }
 
-.buttons button {
-  display: flex;
-  transition: 0.3s ease;
-  border: 1px solid rgb(236, 190, 27);
-  padding: 5px;
-}
+
 
 .todo-input2 {
   margin-right: 10px;
+}
+
+.form3 {
+  align-items: center;
+}
+.todo-input3 {
+  height: 20px;
+  width: 95px;
+  margin-left: 0px;
 }
 
 /* ITEM */
@@ -200,7 +215,7 @@
 
 /* LOGIN PAGE */
 
-.login form{
+.form{
   display: flex;
   justify-content: center;
   margin-top: 160px;
@@ -222,6 +237,14 @@
   color: white;
 }
 
+.login h1 {
+  color: goldenrod;
+  align-self: center;
+  height: 80px;
+  font-size: 32px;
+}
+
+
 .login button {
   height: 50px;
   font-size: large;
@@ -239,6 +262,7 @@
 
 .login div {
   gap: 10px;
+
 }
 
 

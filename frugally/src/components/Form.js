@@ -13,8 +13,13 @@ export default function Form(props) {
                     <h4>Price:</h4>
                     <input type="text" className='todo-input2' ref ={props.inputRefPrice}/>
                 </div>
-                <button className="category" onClick={props.onNameSubmit}>Add</button>           
-                <h4>Total amount: {props.totalBudget}</h4>
+                <div className="form3">
+                    <h4>Budget: </h4>
+                    <input type="text" className="todo-input3" ref={props.inputRefBudget}/>
+                    <button className="budget" onClick={props.onBudgetSubmit}>Enter</button>    
+                </div>
+                <button className="category" onClick={props.onNameSubmit}>Add</button>  
+                <h4>Budget: {props.totalBudget}</h4>
             </div>
                 <List className="list-container" items={props.items} deleteComponent={props.deleteComponent} 
                     editComponent={props.editComponent} />

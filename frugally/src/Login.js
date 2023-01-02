@@ -1,18 +1,19 @@
-export default function Login() {
+export default function Login(props) {
 
   return (
     <div className="login">
-      <form>
+      <div className="form">
+        <h1>LOGIN</h1>
         <div className='user-div'>
-        <h2>Username: </h2>
-          <input/>
+        <h2>Email: </h2>
+          <input onChange={(event) => props.setLoginEmail(event.target.value)}/>
         </div>
         <div className='pass-div'>
           <h2>Password: </h2> 
-          <input/>
+          <input onChange={(event) => props.setLoginPassword(event.target.value)}/>
         </div>
-        <button>Enter</button>
-        </form>
+        <button onClick={props.login}>Login</button>
+      </div>
     </div>
   )
 }
