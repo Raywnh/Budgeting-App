@@ -1,3 +1,3 @@
 # budgeting-app
-~Building :)__
+~Building :)
 Tech Stack: React.JS, ExpressJS, Node.JS, MongoDB, Firebase (authentication)
