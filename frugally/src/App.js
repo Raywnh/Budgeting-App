@@ -26,28 +26,35 @@ function App() {
   const [loginEmail, setLoginEmail] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
 
-  const [user, setUser] = useState("Asd")
+  const [user, setUser] = useState("")
   const [loggedIn, setLoggedIn] = useState(false)
-
-  // USENAV FOR REGISTRATION --> LOGIN && LOGIN --> HOME
+  const [backEndData, setBackEndData] = useState([{}])
   // TODO: CONNECT DATA TO BACKEND --> EXPRESS.JS + MONGODOB + NODE.JS
-    
- 
+  useEffect(() => {
+    fetch("/api").then(
+      res => res.json()
+    ).then(
+      data => {
+        setBackEndData(data)
+      }
+    )
+
+    console.log(backEndData)
+  }, [])
 
   useEffect(() => {
-    
-    setUser(auth.currentUser)
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+    })
     
   }, [loggedIn])
 
   useEffect(() => {
     const priceLost = [...items].reduce((accumulator, start) => accumulator - parseInt(start.price), parseInt(currentBudget))
-    
-    console.log(priceLost)
-    console.log(totalBudget)
     setTotalBudget(priceLost)
     
-  },[items])
+  },[items, currentBudget])
+  
   return (
       <Router>
         <div className="App">
@@ -68,6 +75,7 @@ function App() {
     try {
       await createUserWithEmailAndPassword(auth, registerEmail, registerPassword) 
       console.log("Successfully Registered")
+      
     } catch (error) {
       console.log(error)
     }
@@ -77,6 +85,7 @@ function App() {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword) 
       setLoggedIn(true)
+      console.log("User has logged in")
     } catch (error) {
       console.log(error.message)
     }
@@ -86,6 +95,7 @@ function App() {
   async function logout() {
     await signOut(auth)
     setLoggedIn(false)
+    console.log("User has signed out")
   }
 
   function onBudgetSubmit() {
