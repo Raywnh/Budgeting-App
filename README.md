@@ -1,5 +1,9 @@
 # budgeting-app
-~Building :)  # Getting Started with Create React App
+~Building :)   
+
+Tech Stack: React.JS, ExpressJS, Node.JS, MongoDB, Firebase (authentication)  
+
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
