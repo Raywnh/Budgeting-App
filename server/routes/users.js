@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 // CREATING ONE
 router.post('/', async (req, res) => {
-    const user = new User({
+    const user = await User.create({
         name: req.body.name,
         items: req.body.items,
         budget: req.body.budget 
@@ -30,18 +30,38 @@ router.post('/', async (req, res) => {
 
 // GETTING ONE
 router.get('/:id', getUser, (req, res) => {
-    res.send(res.user.name)
+    res.json(res.user)
 })
 
 // UPDATING ONE
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', getUser, async(req, res) => {
+    if (req.body.name != null) {
+        res.user.name = req.body.name
+    }
+    if (req.body.items != null) {
+        res.user.name = req.body.items
+    }
+    if (req.body.budget != null) {
+        res.user.budget = req.body.budget
+    }
 
+    try {
+        const updatedUser = await res.user.save()
+        res.json(updatedUser)
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
 })
 
 // DELETING ONE
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', getUser, async(req, res) => {
+    try {
+        await res.user.remove()
+        res.json({messsage: "Deleted User"})
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
 })
 
 // Middleware
