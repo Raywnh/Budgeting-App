@@ -28,19 +28,18 @@ function App() {
 
   const [user, setUser] = useState("")
   const [loggedIn, setLoggedIn] = useState(false)
-  const [backEndData, setBackEndData] = useState([{}])
-  // TODO: CONNECT DATA TO BACKEND --> EXPRESS.JS + MONGODOB + NODE.JS
-  useEffect(() => {
-    fetch("/api").then(
-      res => res.json()
-    ).then(
-      data => {
-        setBackEndData(data)
-      }
-    )
 
-    console.log(backEndData)
-  }, [])
+  // TODO: CONNECT DATA TO BACKEND --> EXPRESS.JS + MONGODOB + NODE.JS
+  // ENDPOINTS: 
+  //   - GET REQUEST ON LOGIN + ON MOUNT CHECK FOR IF LOGGED IN -> YES --> GET REQUEST USER DATA AND SAVED ITEMS
+  //   - POST REQUEST ON CREATING NEW ITEM (ONLY AFTER LOGGED IN) AND BUDGET
+  //   - PUT REQUEST ON UPDATING FIELDS (UPDATING ITEMS) AND (BUDGET???)
+  //   - DELETE REQUEST ON DELETING AN ITEM
+  
+  // EXTRA: DELETE ACCOUNT --> DELETE REQUEST (ALSO DELETE ON FIREBASE)
+
+
+ 
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
