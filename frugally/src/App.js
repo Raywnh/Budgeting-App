@@ -29,7 +29,6 @@ function App() {
   const [user, setUser] = useState("")
   const [loggedIn, setLoggedIn] = useState(false)
 
-  // TODO: CONNECT DATA TO BACKEND --> EXPRESS.JS + MONGODOB + NODE.JS
   // ENDPOINTS: 
   //   - GET REQUEST ON LOGIN + ON MOUNT CHECK FOR IF LOGGED IN -> YES --> GET REQUEST USER DATA AND SAVED ITEMS
   //   - POST REQUEST ON CREATING NEW ITEM (ONLY AFTER LOGGED IN) AND BUDGET
@@ -74,7 +73,22 @@ function App() {
     try {
       await createUserWithEmailAndPassword(auth, registerEmail, registerPassword) 
       console.log("Successfully Registered")
-      
+
+      // POST REQUEST: creating new account
+      fetch("/users",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: registerEmail
+        })
+      }).then (
+        res => {return res.json()}
+      ).catch (
+        error => console.log(error)
+      )
+
     } catch (error) {
       console.log(error)
     }
@@ -85,6 +99,8 @@ function App() {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword) 
       setLoggedIn(true)
       console.log("User has logged in")
+      fetch('/users/' + loginEmail).then (res => res.json())
+      .then(data => console.log(data)).catch(error => console.log(error))
     } catch (error) {
       console.log(error.message)
     }
@@ -111,10 +127,24 @@ function App() {
     if (name === '' || isNaN(price) || price === '') return
 
     if(!editItems) {
-      setItems(item => {return [...item, {id: uuidv4(), name: name, price: price}]})
+      setItems(item => {return [...item, {id: uuidv4(), name: name, price: price, belongsTo: loginEmail}]})
     } else {
       updateItems(name, editItems.id, price)
     }
+    console.log(items)
+    // if (loggedIn) {
+    //   // Patch request
+    //   fetch('/users/63b60e8f78553fd4254f2d49', {
+    //     method: "PATCH",
+    //     body: JSON.stringify({
+    //       items: [{id: "1", name: "test", price: 0}]
+    //     }),
+    //     headers: {
+    //       'Content-type': 'application/json'
+    //     }
+    //   }).then((res) => res.json())
+    //   console.log("PATCH REQUEST SUCCESS")
+    // }
 
     inputRefName.current.value = null
     inputRefPrice.current.value = null
@@ -132,7 +162,7 @@ function App() {
   }
 
   function updateItems(name, id, price) {
-    const newItems = items.map((item) => item.id === id ? {name, id, price} : item)
+    const newItems = items.map((item) => item.id === id ? {name, id, price, belongsTo: loginEmail} : item)
     setItems(newItems)
     setEditItems("")
   }
