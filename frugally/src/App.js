@@ -38,12 +38,16 @@ function App() {
   // EXTRA: DELETE ACCOUNT --> DELETE REQUEST (ALSO DELETE ON FIREBASE)
 
 
- 
-
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
     })
+
+    if (loggedIn) {
+      fetch('/items/' + loginEmail
+      ).then((res) => res.json()
+      ).then ((data) => setItems(data))
+    }
     
   }, [loggedIn])
 
@@ -89,6 +93,9 @@ function App() {
         error => console.log(error)
       )
 
+      setRegisterEmail("")
+      setRegisterPassword("")
+
     } catch (error) {
       console.log(error)
     }
@@ -98,9 +105,6 @@ function App() {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword) 
       setLoggedIn(true)
-      console.log("User has logged in")
-      fetch('/users/' + loginEmail).then (res => res.json())
-      .then(data => console.log(data)).catch(error => console.log(error))
     } catch (error) {
       console.log(error.message)
     }
@@ -110,6 +114,9 @@ function App() {
   async function logout() {
     await signOut(auth)
     setLoggedIn(false)
+    setLoginEmail("")
+    setLoginPassword("")
+
     console.log("User has signed out")
   }
 
@@ -127,25 +134,28 @@ function App() {
     if (name === '' || isNaN(price) || price === '') return
 
     if(!editItems) {
-      setItems(item => {return [...item, {id: uuidv4(), name: name, price: price, belongsTo: loginEmail}]})
+      const newId = uuidv4()
+      setItems(item => {return [...item, {id: newId, name: name, price: price, belongsTo: loginEmail}]})
+      
+      // POST REQUEST: creating item
+      if (loggedIn) {
+        fetch('/items/' + loginEmail, {
+          method: "POST",
+          body: JSON.stringify({
+            belongsTo: loginEmail,
+            id: newId,
+            name: name,
+            price: price
+          }),
+          headers: {
+            'Content-type': 'application/json'
+          }
+        }).then((res) => res.json())
+      }
     } else {
       updateItems(name, editItems.id, price)
     }
-    console.log(items)
-    // if (loggedIn) {
-    //   // Patch request
-    //   fetch('/users/63b60e8f78553fd4254f2d49', {
-    //     method: "PATCH",
-    //     body: JSON.stringify({
-    //       items: [{id: "1", name: "test", price: 0}]
-    //     }),
-    //     headers: {
-    //       'Content-type': 'application/json'
-    //     }
-    //   }).then((res) => res.json())
-    //   console.log("PATCH REQUEST SUCCESS")
-    // }
-
+   
     inputRefName.current.value = null
     inputRefPrice.current.value = null
   }
