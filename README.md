@@ -1,7 +1,7 @@
 # budgeting-app
 ~Building :)   
 
-Tech Stack:  
+Tech Stack: MERN
   
 Frontend: React  
 Backend: NodeJS + ExpressJS  
