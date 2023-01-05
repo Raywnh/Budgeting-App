@@ -1,7 +1,12 @@
 # budgeting-app
 ~Building :)   
 
-Tech Stack: React.JS, ExpressJS, Node.JS, MongoDB, Firebase (authentication)  
+Tech Stack:  
+  
+Frontend: React  
+Backend: NodeJS + ExpressJS  
+Database: MongoDB  
+User Authentication: Firebase
 
 # Getting Started with Create React App
 
