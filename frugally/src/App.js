@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 'firebase/auth'
 import {auth} from "./firebase-config"
 
+
 function App() {
   const [totalBudget, setTotalBudget] = useState(0)
   const [currentBudget, setCurrentBudget] = useState(0)
@@ -27,29 +28,36 @@ function App() {
   const [loginPassword, setLoginPassword] = useState("")
 
   const [user, setUser] = useState("")
-  const [loggedIn, setLoggedIn] = useState(false)
 
   // ENDPOINTS: 
-  //   - GET REQUEST ON LOGIN + ON MOUNT CHECK FOR IF LOGGED IN -> YES --> GET REQUEST USER DATA AND SAVED ITEMS
-  //   - POST REQUEST ON CREATING NEW ITEM (ONLY AFTER LOGGED IN) AND BUDGET
+  //   - PATCH REQUEST: BUDGET
   //   - PUT REQUEST ON UPDATING FIELDS (UPDATING ITEMS) AND (BUDGET???)
   //   - DELETE REQUEST ON DELETING AN ITEM
   
   // EXTRA: DELETE ACCOUNT --> DELETE REQUEST (ALSO DELETE ON FIREBASE)
 
-
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
-    })
+      if (currentUser) {
+        setUser(currentUser)
+        setLoginEmail(currentUser.email)
 
-    if (loggedIn) {
-      fetch('/items/' + loginEmail
-      ).then((res) => res.json()
-      ).then ((data) => setItems(data))
-    }
-    
-  }, [loggedIn])
+      // Fetch items saved
+       fetch('/items/' + currentUser.email
+       ).then((res) => res.json()
+       ).then ((data) => setItems(data))
+        
+       // Fetch total budget inputted
+       fetch('/users/' + currentUser.email
+       ).then((res) => res.json()
+       ).then ((data) => setCurrentBudget(data.budget))
+
+      } else {
+        setUser("")
+        setLoginEmail("")
+      }
+    })
+  }, [])
 
   useEffect(() => {
     const priceLost = [...items].reduce((accumulator, start) => accumulator - parseInt(start.price), parseInt(currentBudget))
@@ -60,7 +68,7 @@ function App() {
   return (
       <Router>
         <div className="App">
-        <Menubar user={user} logout={logout} loggedIn={loggedIn}/>
+        <Menubar user={user} logout={logout}/>
         <Routes>
             <Route path= "/" element={
               <Form items={items} setItems={setItems} onNameSubmit={onNameSubmit} inputRefPrice={inputRefPrice} inputRefName={inputRefName} 
@@ -85,7 +93,7 @@ function App() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: registerEmail
+          name: registerEmail 
         })
       }).then (
         res => {return res.json()}
@@ -104,7 +112,6 @@ function App() {
   async function login() {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword) 
-      setLoggedIn(true)
     } catch (error) {
       console.log(error.message)
     }
@@ -113,9 +120,9 @@ function App() {
 
   async function logout() {
     await signOut(auth)
-    setLoggedIn(false)
     setLoginEmail("")
     setLoginPassword("")
+    setItems([])
 
     console.log("User has signed out")
   }
@@ -126,6 +133,22 @@ function App() {
 
     setCurrentBudget(budget)
     setTotalBudget(budget)
+
+    // PATCH REQUEST: update budget field of user
+    onAuthStateChanged(auth, (currentUser) =>{
+      if (currentUser) {
+        fetch('/users/' + loginEmail, {
+            method: 'PATCH',
+            body: JSON.stringify({
+              budget: currentBudget
+            }),
+            headers: {
+              'Content-type': 'application/json'
+            }
+        }).then((res) => res.json())
+      }
+    })
+  
   }
   function onNameSubmit() {
     const name = inputRefName.current.value
@@ -138,20 +161,23 @@ function App() {
       setItems(item => {return [...item, {id: newId, name: name, price: price, belongsTo: loginEmail}]})
       
       // POST REQUEST: creating item
-      if (loggedIn) {
-        fetch('/items/' + loginEmail, {
-          method: "POST",
-          body: JSON.stringify({
-            belongsTo: loginEmail,
-            id: newId,
-            name: name,
-            price: price
-          }),
-          headers: {
-            'Content-type': 'application/json'
-          }
-        }).then((res) => res.json())
-      }
+      onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          fetch('/items/' + currentUser.email, {
+            method: "POST",
+            body: JSON.stringify({
+              belongsTo: currentUser.email,
+              id: newId,
+              name: name,
+              price: price
+            }),
+            headers: {
+              'Content-type': 'application/json'
+            }
+          }).then((res) => res.json())
+        } 
+      })
+      
     } else {
       updateItems(name, editItems.id, price)
     }
@@ -162,7 +188,12 @@ function App() {
 
   function deleteComponent(id) {
     const newItems = items.filter((item) => item.id !== id)
-   
+    
+    // DELETE request: deleting an item
+    fetch('/items/' + id, {
+      method: 'DELETE'
+    }).then((res) => res.json())
+
     setItems(newItems)
   }
 
@@ -174,7 +205,21 @@ function App() {
   function updateItems(name, id, price) {
     const newItems = items.map((item) => item.id === id ? {name, id, price, belongsTo: loginEmail} : item)
     setItems(newItems)
-    setEditItems("")
+
+    // PATCH request: update item
+    fetch('/items/' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        price: price
+      }),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }).then((res) => res.json())
+    
+    setEditItems(null)
   }
 }
 

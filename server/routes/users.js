@@ -34,7 +34,7 @@ router.get('/:name', getUserByName, (req, res) => {
 
 // UPDATING ONE
 
-router.patch('/:id', getUser, async(req, res) => {
+router.patch('/:name', getUserByName, async(req, res) => {
     if (req.body.name != null) {
         res.user.name = req.body.name
     }
