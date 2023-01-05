@@ -29,12 +29,16 @@ function App() {
 
   const [user, setUser] = useState("")
 
-  // ENDPOINTS: 
-  //   - PATCH REQUEST: BUDGET
-  //   - PUT REQUEST ON UPDATING FIELDS (UPDATING ITEMS) AND (BUDGET???)
-  //   - DELETE REQUEST ON DELETING AN ITEM
+  // TODO: 
+  // DELETE ACCOUNT
+    // DELETES ALL ITEMS AND USER FROM MONGODB AND FIREBASE
+
+  // EXTRA:
+    // useNav:
+      // After register: register --> login
+      // After login: login --> home
   
-  // EXTRA: DELETE ACCOUNT --> DELETE REQUEST (ALSO DELETE ON FIREBASE)
+  
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
