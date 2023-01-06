@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register(props) {
+    const navigate = useNavigate()
 
     return (
         <div className="login">
@@ -14,7 +16,7 @@ export default function Register(props) {
                     <h2>Password: </h2> 
                     <input onChange={(event) => props.setRegisterPassword(event.target.value)}/>
                 </div>
-                <button onClick={props.register}>Register</button>
+                <button onClick={() => props.register(navigate)}>Register</button>
             </div>
         </div>
     )

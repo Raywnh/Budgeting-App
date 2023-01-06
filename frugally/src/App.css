@@ -29,29 +29,42 @@
   margin: 16px;
 }
 
-.navLinks li a {
+.menuBar li a {
   transition: all 0.3s ease;
 }
 
-.navLinks li a:hover {
+.menuBar li a:hover {
   color: rgb(236, 190, 27);
 }
 
-.navLinks button {
+.menuBar button {
   transition: all 0.3s ease;
 }
 
-.navLinks button:hover {
+.menuBar button:hover {
   color: rgb(236, 190, 27);
   cursor: pointer;
 }
-.title {
+.title-text {
   font-family: monospace;
   margin-left: auto;
   margin-right: 10px;
   font-size: 34px;
   color: rgb(226, 186, 40);
   background-color: transparent;
+}
+
+.title {
+  display: flex;
+  margin-left: auto;
+  margin-right: 10px;
+  gap:24px;
+  align-items: center;
+  background-color: transparent;
+}
+
+.title button:hover {
+  color: rgb(226, 112, 112)
 }
 
 .navLinks h4 {

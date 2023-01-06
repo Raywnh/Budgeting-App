@@ -12,7 +12,10 @@ export default function Menubar(props) {
               <li><h4>Current User: {props.user?.email} </h4></li>
               {!props.user?  <></>: <li><button onClick={props.logout}>Sign Out</button></li>}
           </ul>
-          <h1 className="title">BUDGETING APP</h1>
+          <div className='title'>
+          {!props.user?  <></>: <li><button onClick={props.deleteAccount}>Delete Your Account</button></li>}
+            <h1 className="title-text">BUDGETING APP</h1>
+          </div>
       </nav>
   )
 }

@@ -2,16 +2,6 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 
-// GETTING ALL
-// router.get('/', async (req, res) => {
-//     try {
-//         const users = await User.find()
-//         res.json(users)
-//     } catch (error) {
-//         res.status(500).json({messsage: error.message}) // 500: server error
-//     }
-// })
-
 // CREATING ONE
 router.post('/', async (req, res) => {
     const user = await User.create({
@@ -51,7 +41,7 @@ router.patch('/:name', getUserByName, async(req, res) => {
 })
 
 // DELETING ONE
-router.delete('/:id', getUser, async(req, res) => {
+router.delete('/:name', getUserByName, async(req, res) => {
     try {
         await res.user.remove()
         res.json({messsage: "Deleted User"})
@@ -60,22 +50,7 @@ router.delete('/:id', getUser, async(req, res) => {
     }
 })
 
-// Middleware
-async function getUser(req, res, next) {
-    let user
-    try {
-        user = await User.findById(req.params.id)
-        if (user == null) {
-            return res.status(404).json({message: "User not found"}) // 404: could not find 
-        }
-    } catch (error) {
-        return res.status(500).json({message: error.message})
-    }
-
-    res.user = user
-    next()
-}
-
+// MIDDLEWARE
 async function getUserByName(req, res, next) {
     let user
     try {

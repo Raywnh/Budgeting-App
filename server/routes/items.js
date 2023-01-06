@@ -30,15 +30,6 @@ router.get('/:name', async (req, res) => {
  
 })
 
-// DELETING ALL 
-router.delete('/', async(req, res) => {
-    try {
-        await Item.remove()
-        res.json({messsage: "Deleted User"})
-    } catch (error) {
-        res.status(400).json({message: error.message})
-    }
-})
 
 // DELETING ONE
 router.delete('/:id', getItemById, async(req, res) => {
@@ -49,6 +40,19 @@ router.delete('/:id', getItemById, async(req, res) => {
         res.status(400).json({message: error.message})
     }
 })
+
+// DELETING ALL FROM A USER
+
+router.delete('/delete/:name', async(req, res) => {
+    try {
+        await Item.deleteMany({belongsTo: req.params.name})
+        res.json({messsage: "Deleted User"})
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+})
+
+
 
 // UPDATING ONE
 router.patch('/:id', getItemById, async(req, res) => {

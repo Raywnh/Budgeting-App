@@ -5,12 +5,18 @@ import Login from './Login';
 import Register from './Register';
 import { useState, useRef, useEffect } from 'react';
 import {v4 as uuidv4} from "uuid"
-import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 'firebase/auth'
+import {BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, getAdditionalUserInfo} from 'firebase/auth'
 import {auth} from "./firebase-config"
 
 
 function App() {
+
+
+  // TODOS:
+    // Visual changes: Inform user that they're editing
+    // Stylize the form a little nicer --bootstrap?
+
   const [totalBudget, setTotalBudget] = useState(0)
   const [currentBudget, setCurrentBudget] = useState(0)
   const inputRefBudget = useRef()
@@ -28,33 +34,24 @@ function App() {
   const [loginPassword, setLoginPassword] = useState("")
 
   const [user, setUser] = useState("")
-
-  // TODO: 
-  // DELETE ACCOUNT
-    // DELETES ALL ITEMS AND USER FROM MONGODB AND FIREBASE
-
-  // EXTRA:
-    // useNav:
-      // After register: register --> login
-      // After login: login --> home
   
-  
-
   useEffect(() => {
+    
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser)
         setLoginEmail(currentUser.email)
-
-      // Fetch items saved
-       fetch('/items/' + currentUser.email
-       ).then((res) => res.json()
-       ).then ((data) => setItems(data))
+       
+        // Fetch items saved
+        fetch('/items/' + currentUser.email
+        ).then((res) => res.json()
+        ).then ((data) => setItems(data))
         
-       // Fetch total budget inputted
-       fetch('/users/' + currentUser.email
-       ).then((res) => res.json()
-       ).then ((data) => setCurrentBudget(data.budget))
+          
+        // Fetch total budget inputted
+        fetch('/users/' + currentUser.email
+        ).then((res) => res.json()
+        ).then ((data) => setCurrentBudget(data.budget))
 
       } else {
         setUser("")
@@ -72,22 +69,48 @@ function App() {
   return (
       <Router>
         <div className="App">
-        <Menubar user={user} logout={logout}/>
+        <Menubar user={user} logout={logout} deleteAccount={deleteAccount}/>
         <Routes>
             <Route path= "/" element={
               <Form items={items} setItems={setItems} onNameSubmit={onNameSubmit} inputRefPrice={inputRefPrice} inputRefName={inputRefName} 
                     deleteComponent={deleteComponent} totalBudget={totalBudget} editComponent={editComponent} onBudgetSubmit={onBudgetSubmit}
-                    inputRefBudget={inputRefBudget}/>}/>
+                    inputRefBudget={inputRefBudget} currentBudget={currentBudget}/> }/>
             <Route path="/login" element={<Login setLoginEmail={setLoginEmail} setLoginPassword={setLoginPassword} login={login}/>}/>
             <Route path="/register" element={<Register setRegisterEmail={setRegisterEmail} setRegisterPassword={setRegisterPassword} register={register} />}/>
         </Routes>
         </div>
       </Router>
   )
+
+  function deleteAccount() {
+
+    onAuthStateChanged(auth, (currentUser) =>{
+      if (currentUser) {
+
+        // DELETE USER ACCOUNT
+        fetch('/users/' + currentUser.email,{
+          method: "DELETE"
+        }).then((res) => res.json())
+        
+        // DELETE ALL ITEMS FROM THE USER
+        fetch('/items/delete/' + currentUser.email, {
+          method: "DELETE"
+        },{
+          body: {
+            belongsTo: currentUser.email
+          }
+        }).then((res) => res.json())
+
+        currentUser.delete()
+        setItems([])
+      }    
+    })    
+  }
   
-  async function register() {
+  async function register(navigate) {
     try {
       await createUserWithEmailAndPassword(auth, registerEmail, registerPassword) 
+      await signOut(auth)
       console.log("Successfully Registered")
 
       // POST REQUEST: creating new account
@@ -107,15 +130,18 @@ function App() {
 
       setRegisterEmail("")
       setRegisterPassword("")
-
+      
+      navigate('/login')
     } catch (error) {
       console.log(error)
     }
   }
   
-  async function login() {
+  async function login(navigate) {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword) 
+      navigate('/')
+      
     } catch (error) {
       console.log(error.message)
     }
@@ -127,7 +153,7 @@ function App() {
     setLoginEmail("")
     setLoginPassword("")
     setItems([])
-
+   
     console.log("User has signed out")
   }
 
@@ -144,7 +170,7 @@ function App() {
         fetch('/users/' + loginEmail, {
             method: 'PATCH',
             body: JSON.stringify({
-              budget: currentBudget
+              budget: budget
             }),
             headers: {
               'Content-type': 'application/json'
@@ -193,10 +219,15 @@ function App() {
   function deleteComponent(id) {
     const newItems = items.filter((item) => item.id !== id)
     
-    // DELETE request: deleting an item
-    fetch('/items/' + id, {
-      method: 'DELETE'
-    }).then((res) => res.json())
+
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        // DELETE request: deleting an item
+        fetch('/items/' + id, {
+          method: 'DELETE'
+        }).then((res) => res.json())
+      }
+    })
 
     setItems(newItems)
   }

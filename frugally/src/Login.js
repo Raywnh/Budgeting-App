@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom"
+
 export default function Login(props) {
+  const navigate = useNavigate()
 
   return (
     <div className="login">
@@ -12,7 +15,7 @@ export default function Login(props) {
           <h2>Password: </h2> 
           <input onChange={(event) => props.setLoginPassword(event.target.value)}/>
         </div>
-        <button onClick={props.login}>Login</button>
+        <button onClick={() =>props.login(navigate)}>Login</button>
       </div>
     </div>
   )

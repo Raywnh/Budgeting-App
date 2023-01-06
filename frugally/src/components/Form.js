@@ -19,6 +19,7 @@ export default function Form(props) {
                     <button className="budget" onClick={props.onBudgetSubmit}>Enter</button>    
                 </div>
                 <button className="category" onClick={props.onNameSubmit}>Add</button>  
+                <h4>Original Budget: {props.currentBudget}</h4>
                 <h4>Budget Left: {props.totalBudget}</h4>
             </div>
                 <List className="list-container" items={props.items} deleteComponent={props.deleteComponent} 
