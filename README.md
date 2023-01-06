@@ -1,5 +1,4 @@
 # budgeting-app
-~Building :)   
 
 Tech Stack: MERN
   
