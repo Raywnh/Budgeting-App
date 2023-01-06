@@ -87,6 +87,7 @@ function App() {
     try {
       await createUserWithEmailAndPassword(auth, registerEmail, registerPassword) 
       await signOut(auth)
+     
       console.log("Successfully Registered")
 
       // POST REQUEST: creating new account
@@ -106,8 +107,8 @@ function App() {
 
       setRegisterEmail("")
       setRegisterPassword("")
-      
       navigate('/login')
+      
     } catch (error) {
       console.log(error)
     }
