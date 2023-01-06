@@ -41,19 +41,6 @@ router.delete('/:id', getItemById, async(req, res) => {
     }
 })
 
-// DELETING ALL FROM A USER
-
-router.delete('/delete/:name', async(req, res) => {
-    try {
-        await Item.deleteMany({belongsTo: req.params.name})
-        res.json({messsage: "Deleted User"})
-    } catch (error) {
-        res.status(400).json({message: error.message})
-    }
-})
-
-
-
 // UPDATING ONE
 router.patch('/:id', getItemById, async(req, res) => {
     if (req.body.belongsTo != null) {

@@ -5,8 +5,8 @@ import Login from './Login';
 import Register from './Register';
 import { useState, useRef, useEffect } from 'react';
 import {v4 as uuidv4} from "uuid"
-import {BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, getAdditionalUserInfo} from 'firebase/auth'
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from 'firebase/auth'
 import {auth} from "./firebase-config"
 
 
@@ -69,7 +69,7 @@ function App() {
   return (
       <Router>
         <div className="App">
-        <Menubar user={user} logout={logout} deleteAccount={deleteAccount}/>
+        <Menubar user={user} logout={logout}/>
         <Routes>
             <Route path= "/" element={
               <Form items={items} setItems={setItems} onNameSubmit={onNameSubmit} inputRefPrice={inputRefPrice} inputRefName={inputRefName} 
@@ -82,30 +82,6 @@ function App() {
       </Router>
   )
 
-  function deleteAccount() {
-
-    onAuthStateChanged(auth, (currentUser) =>{
-      if (currentUser) {
-
-        // DELETE USER ACCOUNT
-        fetch('/users/' + currentUser.email,{
-          method: "DELETE"
-        }).then((res) => res.json())
-        
-        // DELETE ALL ITEMS FROM THE USER
-        fetch('/items/delete/' + currentUser.email, {
-          method: "DELETE"
-        },{
-          body: {
-            belongsTo: currentUser.email
-          }
-        }).then((res) => res.json())
-
-        currentUser.delete()
-        setItems([])
-      }    
-    })    
-  }
   
   async function register(navigate) {
     try {
@@ -148,12 +124,11 @@ function App() {
 
   }
 
-  async function logout() {
+  async function logout(navigate) {
     await signOut(auth)
-    setLoginEmail("")
-    setLoginPassword("")
-    setItems([])
-   
+
+    navigate('/register')
+    window.location.reload(false)
     console.log("User has signed out")
   }
 

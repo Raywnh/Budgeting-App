@@ -40,15 +40,6 @@ router.patch('/:name', getUserByName, async(req, res) => {
     }
 })
 
-// DELETING ONE
-router.delete('/:name', getUserByName, async(req, res) => {
-    try {
-        await res.user.remove()
-        res.json({messsage: "Deleted User"})
-    } catch (error) {
-        res.status(400).json({message: error.message})
-    }
-})
 
 // MIDDLEWARE
 async function getUserByName(req, res, next) {
