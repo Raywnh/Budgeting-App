@@ -1,7 +1,6 @@
 # budgeting-app
 
-
-View the frontend here: https://frugally.netlify.app/  
+Frontend preview: https://frugally.netlify.app/  
 Tech Stack: MERN
   
 Frontend: React  
